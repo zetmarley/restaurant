@@ -24,8 +24,8 @@ class Booking(models.Model):
 
     table = models.ForeignKey("Table", on_delete=models.CASCADE,
                               verbose_name='стол', **NULLABLE)
-    time_from = models.DateTimeField()
-    time_to = models.DateTimeField()
+    time_from = models.DateTimeField(verbose_name='бронь с')
+    time_to = models.DateTimeField(verbose_name='бронь до')
     client_email = models.EmailField(unique=True, verbose_name='почта клиента')
     client_name = models.CharField(max_length=50, verbose_name='имя клиента')
     client_phone = models.CharField(max_length=11, verbose_name='телефон клиента')
