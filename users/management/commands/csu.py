@@ -6,6 +6,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         email = str(input('Почта: '))
+        phone = str(input('Номер телефона: '))
         first_name = str(input('Имя: '))
         last_name = str(input('Фамилия: '))
         while True:
@@ -18,13 +19,14 @@ class Command(BaseCommand):
                 print('\nПароли не совпадают, попробуйте ещё раз.\n')
 
         user = User.objects.create(
-            email = email,
+            email=email,
+            phone=phone,
             first_name=first_name,
             last_name=last_name,
             job_title='администратор',
-            is_staff = True,
-            is_superuser = True,
-            is_active = True
+            is_staff=True,
+            is_superuser=True,
+            is_active=True
         )
 
         user.set_password(password)
