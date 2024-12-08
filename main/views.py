@@ -69,3 +69,9 @@ class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+
+class BookingCreateView(CreateView):
+    model = Table
+    success_url = reverse_lazy('main:booking_create')
+    template_name = 'table_form.html'

@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
-from dotenv import load_dotenv
+
+import pytz
+from dotenv.main import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -117,6 +120,8 @@ LANGUAGE_CODE = os.getenv('LANGUAGE_CODE')
 
 TIME_ZONE = os.getenv('TIME_ZONE')
 
+local_tz = pytz.timezone(TIME_ZONE)
+
 USE_I18N = True
 
 USE_TZ = True
@@ -149,12 +154,12 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_TIMEZONE = "Asia/Novosibirsk"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-# CELERY_BEAT_SCHEDULE = {
-#     'notifications': {
-#         'task': 'bot.tasks.notifications',
-#         'schedule': timedelta(minutes=1),
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    'check_bookings': {
+        'task': 'main.tasks.check_bookings',
+        'schedule': timedelta(seconds=10),
+    },
+}
 
 
 CORS_ALLOWED_ORIGINS = [
