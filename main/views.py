@@ -13,7 +13,7 @@ from django.views.generic.list import ListView
 
 class TableListView(ListView):
     model = Table
-    template_name = 'table_list.html'
+    template_name = 'info.html'
 
 
 class TableDetailView(LoginRequiredMixin, DetailView):
@@ -74,4 +74,4 @@ class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class BookingCreateView(CreateView):
     model = Table
     success_url = reverse_lazy('main:booking_create')
-    template_name = 'table_form.html'
+    template_name = 'booking_form.html'

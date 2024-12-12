@@ -8,8 +8,7 @@ from main.views import TableListView, TableDetailView, TableCreateView, TableUpd
 app_name = MainConfig.name
 
 urlpatterns = [
-    path('', cache_page(60)(TableListView.as_view()), name='list'),
-    path('table/<int:pk>/', cache_page(60)(TableDetailView.as_view()), name='info'),
+    path('', cache_page(60)(TableListView.as_view()), name='info'),
     path('table/create/', cache_page(60)(TableCreateView.as_view()), name='create'),
     path('table/update/<int:pk>/', cache_page(60)(TableUpdateView.as_view()), name='update'),
     path('table/delete/<int:pk>/', cache_page(60)(TableDeleteView.as_view()), name='delete'),

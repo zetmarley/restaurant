@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="top top__catalog center ">
+            <div class="header">
+                <a class="logo" href="index.html"><img class="logo__img" src="/media/background_header.jpeg" alt="Логотип"></a>
+                <input placeholder="Поиск" class="header__input" type="text">
+                <div class="navigation__mobil">
+                    <a href="#"><img src="#" alt="mini3"></a>
+                    <a href="catalog.html"><img src="#" alt="mimi2"></a>
+                    <a href="basket.html"><img src="#" alt="mini.svg"></a>
+                </div>
+            </div>
+                <h1 class="title__catalog">Ресторан "История вкуса"</h1>
+        </div>
+    </header>
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer class="footer center">
+        <div>
+            <img class="footer__logo" src="#svg" alt="Логотип">
+        </div>
+        <div class="footer__content">
+            <section class="footer__info">
+                <nav class="footer__item">
+                    <a class="menu" href="{% url 'main:booking_create' %}">Забронировать стол</a>
+                    <a class="menu" href="catalog.html">Меню</a>
+                </nav>
+                <div class="footer__item">
+                    <h4 class="contacts">Контакты</h4>
+                    <a class="menu__link" href="">+7 996 545 49 09</a>
+                    <a class="menu__link" href="">vvnfrd@gmail.com</a>
+                    <div class="footer__icons">
+                        <img class="tg_logo" src="/media/tg.svg" alt="Телеграм">
+                    </div>
+                </div>
+                <form class="footer__form" action="#">
+                    <p class="subscription">Получайте наши новости и обновления</p>
+                    <input class="email" placeholder="Ваш e-mail" type="email">
+                    <button class="button">Подписаться</button>
+                </form>
+            </section>
+        </div>
+    </footer>
+</body>
+
+</html>

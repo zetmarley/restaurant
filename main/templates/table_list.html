@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% block content %}
+<section class="product-box center">
+            <div class="product-content">
+              {% for table in table_list|dictsort:"pk" %}
+                <div class="product">
+                    <h3 class="product__name">Стол №{{table.pk}}</h3>
+                    {% if table.is_vip %}
+                      <p class="product__overview">VIP</p>
+                    {% endif %}
+                    <p class="product__overview">Кол-во мест: {{table.seats}}</p>
+                </div>
+              {% endfor %}
+            </div>
+        <div>
+          <img class="table_map" src="#" alt="Карта столов">
+        </div>
+        </section>
+{% endblock %}
