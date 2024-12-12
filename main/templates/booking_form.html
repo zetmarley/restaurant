@@ -1,21 +1,52 @@
 {% extends 'base.html'%}
 {% block content %}
 <section class="product-box center">
-            <div class="product-content">
-              {% for table in table_list|dictsort:"pk" %}
-                <div class="product">
-                    <h3 class="product__name">Стол №{{table.pk}}</h3>
-                    {% if table.is_vip %}
-                      <p class="product__overview">VIP</p>
-                    {% endif %}
-                    <p class="product__overview">Кол-во мест: {{table.seats}}</p>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                </div>
-              {% endfor %}
-            </div>
-        <div>
-          <img class="table_map" src="#" alt="Карта столов">
+    <div class="product-content">
+        {% for table in table_list|dictsort:"pk" %}
+        <div class="product">
+            <h3 class="product__name">Стол №{{table.pk}}</h3>
+            {% if table.is_vip %}
+            <p class="product__overview">VIP</p>
+            {% endif %}
+            <p class="product__overview">Кол-во мест: {{table.seats}}</p>
         </div>
-        </section>
+        {% endfor %}
+    </div>
+    <div>
+        <img class="table_map" src="#" alt="Карта столов">
+    </div>
+
+    <div class="container">
+        <form class="row" method="post" enctype="multipart/form-data">
+            <div class="col-6">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-success">
+                                {% if object %}
+                                Сохранить
+                                {% else %}
+                                Создать
+                                {% endif %}
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                        {{ form.as_p }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock %}

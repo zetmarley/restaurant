@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .product-box {
     display: flex;
     flex-direction: row;
@@ -24,13 +30,11 @@ a {
 }
 
 .top {
-  height: 735px;
-  background-image: url(img/topback.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
 .top__catalog {
-  background-image: url(img/topcatalog.jpeg);
+  background-image: url(/media/background_header.jpeg);
   height: 400px;
 }
 
@@ -41,7 +45,6 @@ main {
 .header {
   height: 77px;
   display: flex;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.8);
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
@@ -80,6 +83,12 @@ main {
   display: flex;
   gap: 32px;
 }
+.navigation__footer{
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+}
+
 .navigation__link {
   font-size: 16px;
   line-height: 20px;
@@ -113,13 +122,18 @@ main {
   text-align: left;
   text-decoration: none;
 }
+
+.info-image {
+    background-image: url(/media/interior.jpg);
+    background-position: center;
+    height: 400px;
+}
+
 .catalog__info {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: start;
+  flex-direction: column;
   justify-content: space-between;
-  padding-top: 64px;
+  gap: 30px;
 }
 .catalog__nav {
   display: flex;
@@ -160,7 +174,7 @@ main {
   line-height: 70px;
   text-align: left;
   color: #FFFFFF;
-  margin-top: 127px;
+  padding-top: 200px;
 }
 
 .tagline {
@@ -206,24 +220,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.for__item_big {
-  grid-column: span 6;
-}
-.for__item_1 {
-  background-image: url(img/for_1.jpeg);
-}
-.for__item_2 {
-  background-image: url(img/for_2.jpg);
-}
-.for__item_3 {
-  background-image: url(img/for_3.jpg);
-}
-.for__item_4 {
-  background-image: url(img/for_4.jpg);
-}
-.for__item_5 {
-  background-image: url(img/for_5.jpg);
 }
 
 .product-content {
@@ -1018,18 +1014,13 @@ main {
     padding-top: 32px;
     height: 703px;
   }
-  .top__catalog {
-    height: 368px;
-    padding: 16px;
-  }
+
   .top__basket {
     background-position: center;
     padding-top: 32px;
     height: 400px;
   }
-  .navigation {
-    display: none;
-  }
+
   .navigation__mobil {
     display: flex;
     align-items: center;
@@ -1089,11 +1080,6 @@ main {
     color: #000;
     margin-top: 32px;
     margin-bottom: 32px;
-  }
-  .catalog__info {
-    height: auto;
-    gap: 14px;
-    padding-top: 32px;
   }
   .catalog__nav {
     align-items: center;

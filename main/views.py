@@ -1,19 +1,27 @@
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+
+from config.settings import BASE_DIR
+from main.forms import BookingForm
 # from main.forms import ProductForm, VersionForm, ProductFormForModerator
 from main.models import Table, Booking
 from django.views.generic.list import ListView
 
 # from main.services import get_cached_categories_for_product
 
+def info(request):
+    return render(request, f"{BASE_DIR}/main/templates/info.html")
+
 
 class TableListView(ListView):
     model = Table
-    template_name = 'info.html'
+    template_name = 'booking_form.html'
 
 
 class TableDetailView(LoginRequiredMixin, DetailView):
@@ -72,6 +80,7 @@ class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class BookingCreateView(CreateView):
-    model = Table
+    model = Booking
+    form_class = BookingForm
     success_url = reverse_lazy('main:booking_create')
     template_name = 'booking_form.html'

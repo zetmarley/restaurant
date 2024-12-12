@@ -16,23 +16,18 @@
 <body>
     <header>
         <div class="top top__catalog center ">
-            <div class="header">
-                <a class="logo" href="index.html"><img class="logo__img" src="/media/background_header.jpeg" alt="Логотип"></a>
-                <input placeholder="Поиск" class="header__input" type="text">
-                <div class="navigation__mobil">
-                    <a href="#"><img src="#" alt="mini3"></a>
-                    <a href="catalog.html"><img src="#" alt="mimi2"></a>
-                    <a href="basket.html"><img src="#" alt="mini.svg"></a>
-                </div>
-            </div>
-                <h1 class="title__catalog">Ресторан "История вкуса"</h1>
+                                <h1 class="title__catalog">Ресторан "История вкуса"</h1>
+
         </div>
     </header>
     <main>
+        <section class="content">
+            {% include 'includes/info_menu.html' %}
+
 
         {% block content %}
         {% endblock %}
-
+        </section>
     </main>
 
     <footer class="footer center">
@@ -41,9 +36,10 @@
         </div>
         <div class="footer__content">
             <section class="footer__info">
-                <nav class="footer__item">
+                <nav class="navigation navigation__footer center">
                     <a class="menu" href="{% url 'main:booking_create' %}">Забронировать стол</a>
-                    <a class="menu" href="catalog.html">Меню</a>
+                    <a class="menu" href="#">Меню</a>
+                    <a class="menu" href="{% url 'main:info' %}">На главную</a>
                 </nav>
                 <div class="footer__item">
                     <h4 class="contacts">Контакты</h4>
