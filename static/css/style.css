@@ -18,6 +18,11 @@ body {
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
+  background-color: black;
+  background-image: linear-gradient( rgba(20, 10, 0, 0.7), rgba(20, 10, 0, 0.7) ), url('/media/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .center {
@@ -32,10 +37,15 @@ a {
 .top {
   background-repeat: no-repeat;
   background-size: cover;
-}
-.top__catalog {
-  background-image: url(/media/background_header.jpeg);
-  height: 400px;
+  background-position: center;
+  background-image: url(/media/background_header.png);
+  height: 380px;
+  display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    padding-bottom: 20px;
+    border-radius: 0px 0px 50px 50px;
+    justify-content: center;
 }
 
 main {
@@ -82,6 +92,7 @@ main {
 .navigation {
   display: flex;
   gap: 32px;
+  justify-content: center;
 }
 .navigation__footer{
     flex-direction: column;
@@ -126,9 +137,39 @@ main {
 .info-image {
     background-image: url(/media/interior.jpg);
     background-position: center;
-    height: 400px;
+}
+.info-flex {
+    display: flex;
+    background-color: rgb(80,42,32, 80%);
+    border-radius: 50px;
+    max-height: 350px;
+}
+.info-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 350px;
 }
 
+li {
+    list-style-position: inside;
+}
+.reverse {
+    flex-direction: row-reverse;
+}
+
+.text {
+    color: white;
+    text-indent: 50px;
+    line-height: 1.5;
+    padding-bottom: 30px;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.pic {
+    border-radius: 50px;
+}
 .catalog__info {
   display: flex;
   flex-direction: column;
@@ -155,26 +196,22 @@ main {
   text-decoration-line: underline;
 }
 
-.title {
-  margin-top: 64px;
-  margin-bottom: 16px;
-  text-align: left;
-  width: 792px;
-  color: #ffffff;
-  font-size: 64px;
-  font-weight: 600;
-  line-height: 70px;
-  letter-spacing: 0%;
-  text-align: left;
+header {
+
 }
 .title__catalog {
-  font-family: Montserrat;
-  font-size: 64px;
-  font-weight: 600;
-  line-height: 70px;
-  text-align: left;
-  color: #FFFFFF;
-  padding-top: 200px;
+  font-family: Jurere;
+  text-shadow: #FC0 1px 0 10px;
+  font-size: 100px;
+  font-weight: 50;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0,0,0, 100%);
+  background-size: cover;
+  border-radius: 0 0 10% 10%;
+  letter-spacing: .3rem;
+  padding: 5px;
+  padding-right: 5px;
 }
 
 .tagline {
@@ -285,20 +322,25 @@ main {
 }
 
 .footer {
-  background: rgb(247, 246, 246);
+  background: rgb(25, 10, 0);
   display: flex;
   padding-bottom: 32px;
   padding-top: 40px;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   background-size: cover;
 }
 
 .menu {
+font-family: Jurere;
+  text-shadow: #FC0 1px 0 10px;
+
+font-weight: lighter;
+letter-spacing: .3rem;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: #000000;
+  color: white;
   text-decoration: none;
 }
 .menu__link {
@@ -314,10 +356,12 @@ main {
 }
 
 .contacts {
+    font-family: Jurere;
+  text-shadow: #FC0 1px 0 10px;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: #000000;
+  color: white;
 }
 
 .footer__content {
@@ -328,7 +372,7 @@ main {
 
 .footer__info {
   display: flex;
-  gap: 129px;
+  gap: 150px;
   flex-wrap: nowrap;
 }
 
@@ -349,6 +393,8 @@ main {
 .tg_logo {
     width: 24px;
     height: 24px;
+    filter: invert(100%);
+
 }
 
 .footer__form {
@@ -361,7 +407,7 @@ main {
 .subscription {
   font-size: 12px;
   line-height: 16px;
-  color: #000000;
+  color: white;
 }
 
 .email {
@@ -393,14 +439,18 @@ main {
 .button {
   width: 275px;
   height: 46px;
-  border: 1px 1px 1px 1px;
+  border: 0px;
   opacity: 0px;
-  border: 1px solid #ffffff;
+  color: white;
   border-radius: 16px;
-  font-family: Montserrat;
-  font-weight: 400;
-  font-size: 14px;
-  background: rgba(222, 215, 215, 0.4117647059);
+  font-family: Jurere;
+  font-weight: 900;
+  font-size: 25px;
+  letter-spacing: .2rem;
+  background: rgb(80,42,32, 80%);;
+    text-shadow: #FC0 1px 0 10px;
+
+
 }
 .button__box {
   width: 200px;
@@ -440,6 +490,7 @@ main {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
 }
 
 .title__basket {
@@ -1009,11 +1060,7 @@ main {
   .header__input {
     display: none;
   }
-  .top {
-    background-position: center;
-    padding-top: 32px;
-    height: 703px;
-  }
+
 
   .top__basket {
     background-position: center;
@@ -1046,14 +1093,7 @@ main {
     top: 118px;
     left: 16px;
   }
-  .title__catalog {
-    font-family: Montserrat;
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 59px;
-    text-align: center;
-    margin-top: 82px;
-  }
+
   .title__basket {
     font-family: Montserrat;
     font-size: 48px;
@@ -1146,7 +1186,6 @@ main {
     gap: 34px;
   }
   .footer__info {
-    gap: 100px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -1208,3 +1247,8 @@ main {
     padding: 16px;
   }
 }/*# sourceMappingURL=style.css.map */
+
+@font-face {
+  font-family: "Jurere";
+  src: url("/media/fonts/jurere/jurere.otf") format("truetype");
+}

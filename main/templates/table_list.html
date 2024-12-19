@@ -1,6 +1,6 @@
-{% extends 'base.html'%}
-{% block content %}
-<section class="product-box center">
+{% extends 'booking_form.html'%}
+{% block table_list %}
+<div class="product-box center">
             <div class="product-content">
               {% for table in table_list|dictsort:"pk" %}
                 <div class="product">
@@ -12,8 +12,5 @@
                 </div>
               {% endfor %}
             </div>
-        <div>
-          <img class="table_map" src="#" alt="Карта столов">
-        </div>
-        </section>
+</div>
 {% endblock %}
