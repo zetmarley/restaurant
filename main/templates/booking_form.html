@@ -2,10 +2,6 @@
 {% block content %}
 
 <section class="product-box center">
-
-    {% block table_list %}
-    {% endblock %}
-
     <div class="container">
         <form class="row" method="post" enctype="multipart/form-data">
             <div class="col-6">
@@ -14,12 +10,8 @@
                         <div class="card-body">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <button type="submit" class="btn btn-success">
-                                {% if object %}
-                                Сохранить
-                                {% else %}
-                                Создать
-                                {% endif %}
+                            <button class="button" type="submit" class="btn btn-success">
+                                Забронировать
                             </button>
 
                         </div>
@@ -38,5 +30,26 @@
             </div>
         </form>
     </div>
+
+<div class="table-list center">
+            <div class="product-content">
+              {% for table in tables|dictsort:'pk' %}
+                <div class="product">
+                    <h3 class="product__name">Стол №{{table.pk}}</h3>
+                    {% if table.is_vip %}
+                      <p class="product__overview">VIP</p>
+                    {% endif %}
+                    {% if table.free %}
+                    <p class="product__overview">Свободен</p>
+                    {% else %}
+                    <p class="product__overview">Занят</p>
+                    {% endif %}
+                    <p class="product__overview">Кол-во мест: {{table.seats}}</p>
+                </div>
+              {% endfor %}
+            </div>
+    <img class="table-list-map" src="/media/map_with_numbers.png" alt="map">
+</div>
+
 </section>
 {% endblock %}

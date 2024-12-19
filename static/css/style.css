@@ -13,6 +13,16 @@
     display: flex;
     flex-direction: row;
 }
+
+.table-list {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+.table-list-map {
+    max-width: 500px;
+    max-height: 500px;
+}
 body {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -260,19 +270,17 @@ header {
 }
 
 .product-content {
-  height: 250px;
   background-repeat: no-repeat;
   block-size: auto;
-  margin-top: 32px;
   display: flex;
   flex-wrap: wrap;
   -moz-column-gap: 32px;
-  column-gap: 32px;
-  row-gap: 48px;
+  row-gap: 10px;
+  justify-content: flex-end;
 }
 
 .product {
-  width: 378px;
+  width: 150px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -286,7 +294,7 @@ header {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: rgb(0, 0, 0);
+  color: white;
   letter-spacing: 0%;
   text-align: left;
 }
@@ -294,7 +302,7 @@ header {
 .product__overview {
   font-size: 14px;
   line-height: 17px;
-  color: rgb(136, 136, 136);
+  color: white;
   font-weight: 400;
   letter-spacing: 0%;
   text-align: left;
@@ -1154,11 +1162,7 @@ letter-spacing: .3rem;
   .product {
     width: auto;
   }
-  .product__name {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21.94px;
-  }
+
   .product__price {
     font-size: 18px;
     font-weight: 400;
@@ -1168,10 +1172,12 @@ letter-spacing: .3rem;
     font-size: 12px;
     font-weight: 400;
     line-height: 14.63px;
+    color: white;
   }
   .product-content {
     flex-direction: column;
     flex-wrap: nowrap;
+    margin-left: 40px;
   }
   .form__buttons {
     display: flex;
@@ -1248,6 +1254,34 @@ letter-spacing: .3rem;
   }
 }/*# sourceMappingURL=style.css.map */
 
+.card-body {
+display: flex;
+flex-direction: column;
+    color: white;
+    gap: 10px;
+}
+
+select {
+    box-sizing: border-box;
+  border: 1px solid #C4C4C4;
+  border-radius: 16px;
+  background: #ffffff;
+  line-height: 15px;
+  letter-spacing: 0%;
+  width: 275px;
+  padding-left: 17px;
+}
+
+input {
+    box-sizing: border-box;
+  border: 1px solid #C4C4C4;
+  border-radius: 16px;
+  background: #ffffff;
+  line-height: 15px;
+  letter-spacing: 0%;
+  width: 275px;
+  padding-left: 17px;
+}
 @font-face {
   font-family: "Jurere";
   src: url("/media/fonts/jurere/jurere.otf") format("truetype");

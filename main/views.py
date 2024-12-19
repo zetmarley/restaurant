@@ -84,3 +84,9 @@ class BookingCreateView(CreateView):
     form_class = BookingForm
     success_url = reverse_lazy('main:booking_create')
     template_name = 'booking_form.html'
+    context_object_name = Table
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tables"] = Table.objects.all()
+        return context
