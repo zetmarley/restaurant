@@ -4,9 +4,12 @@ import os
 from time import tzname
 from pathlib import Path
 import pytz
+from dateutil import tz
+from django.conf import settings
+from django.core.mail import send_mail
 
 from config.settings import local_tz, BASE_DIR
-from main.models import Booking
+from main.models import Booking, Table
 from celery import shared_task
 
 # @shared_task
@@ -44,7 +47,8 @@ from celery import shared_task
 @shared_task
 def check_bookings():
     booking_list = Booking.objects.all()
-    time_now = datetime.datetime.now(datetime.timezone.utc)
+    time_now = datetime.datetime.now(tz.gettz(settings.TIME_ZONE))
+    table_list = Table.objects.all()
     for booking in booking_list:
 
         if booking.time_from <= time_now <= booking.time_to and booking.table.free == True:
@@ -78,4 +82,10 @@ def check_bookings():
             with open(file, 'w') as f:
                 f.write(json.dumps(booking_dict))
             booking.delete()
+
+    for table in table_list:
+        if not Booking.objects.filter(table=table).exists() and table.free == False:
+            table.free = True
+            print('aboba')
+            table.save()
 

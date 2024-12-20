@@ -144,10 +144,6 @@ main {
   text-decoration: none;
 }
 
-.info-image {
-    background-image: url(/media/interior.jpg);
-    background-position: center;
-}
 .info-flex {
     display: flex;
     background-color: rgb(80,42,32, 80%);
@@ -410,9 +406,11 @@ letter-spacing: .3rem;
   flex-direction: column;
   gap: 8px;
   flex-wrap: wrap;
+  width: 275px;
 }
 
 .subscription {
+    width: 275px;
   font-size: 12px;
   line-height: 16px;
   color: white;
@@ -425,7 +423,7 @@ letter-spacing: .3rem;
   background: #ffffff;
   line-height: 15px;
   letter-spacing: 0%;
-  width: 275px;
+
   height: 46px;
   padding-left: 17px;
 }
@@ -445,7 +443,7 @@ letter-spacing: .3rem;
 }
 
 .button {
-  width: 275px;
+
   height: 46px;
   border: 0px;
   opacity: 0px;
@@ -1286,3 +1284,5 @@ input {
   font-family: "Jurere";
   src: url("/media/fonts/jurere/jurere.otf") format("truetype");
 }
+
+

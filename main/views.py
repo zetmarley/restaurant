@@ -18,6 +18,9 @@ from django.views.generic.list import ListView
 def info(request):
     return render(request, f"{BASE_DIR}/main/templates/info.html")
 
+def menu(request):
+    return render(request, f"{BASE_DIR}/main/templates/menu.html")
+
 
 class TableListView(ListView):
     model = Table
