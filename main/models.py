@@ -11,13 +11,13 @@ class Table(models.Model):
     seats = models.PositiveIntegerField(default=4, verbose_name='кол-во мест')
     is_vip = models.BooleanField(default=False, verbose_name='вип статус')
 
-
     def __str__(self):
         return f'стол {self.pk} {"свободный" if self.free else "занятый"}'
 
     class Meta:
         verbose_name = 'стол'
         verbose_name_plural = 'столы'
+
 
 class Booking(models.Model):
     """Модель бронирования"""

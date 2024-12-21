@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
 from users.forms import UserProfileForm
 from users.models import User
 

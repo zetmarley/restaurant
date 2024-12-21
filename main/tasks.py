@@ -5,8 +5,9 @@ from dateutil import tz
 from django.conf import settings
 from django.core.mail import send_mail
 from config.settings import local_tz, BASE_DIR
-from main.models import Booking, Table
+from main.models import Booking
 from celery import shared_task
+
 
 @shared_task
 def email_notification():
@@ -20,7 +21,7 @@ def email_notification():
                 time_to_tz = booking.time_to.astimezone()
 
                 send_mail(
-                    subject=f'До начала бронирования остался час!',
+                    subject='До начала бронирования остался час!',
                     message=f'Ваша бронь:\nСтол №{booking.table.pk}\nC {time_from_tz.hour}:'
                             f'{time_from_tz.minute} До {time_to_tz.hour}:{time_to_tz.minute}',
                     from_email=settings.EMAIL_HOST_USER,
@@ -29,14 +30,14 @@ def email_notification():
                 booking.is_notified = True
                 booking.save()
 
+
 @shared_task
 def check_bookings():
     booking_list = Booking.objects.all()
     time_now = datetime.datetime.now(tz.gettz(settings.TIME_ZONE))
-    table_list = Table.objects.all()
     for booking in booking_list:
 
-        if booking.time_from <= time_now <= booking.time_to and booking.table.free == True:
+        if booking.time_from <= time_now <= booking.time_to and booking.table.free:
             table = booking.table
             table.free = False
             table.save()
@@ -67,9 +68,3 @@ def check_bookings():
             with open(file, 'w') as f:
                 f.write(json.dumps(booking_dict))
             booking.delete()
-
-    for table in table_list:
-        if not Booking.objects.filter(table=table).exists() and table.free == False:
-            table.free = True
-            table.save()
-

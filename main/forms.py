@@ -1,13 +1,10 @@
 from django import forms
-from django.conf import settings
-from django.core.mail import send_mail
 from django.forms import HiddenInput
 
 from main.models import Booking, Table
 
 
 class BookingForm(forms.ModelForm):
-
 
     class Meta:
         model = Booking
@@ -26,7 +23,6 @@ class BookingForm(forms.ModelForm):
         if time_from >= time_to:
             raise forms.ValidationError("Время начала бронирования должно быть раньше времени окончания.")
 
-
         overlapping_bookings = Booking.objects.filter(
             table=table,
             time_from__lt=time_to,  # Начало существующего бронирования раньше конца нового
@@ -34,7 +30,8 @@ class BookingForm(forms.ModelForm):
         )
 
         if overlapping_bookings.exists():
-            raise forms.ValidationError("Данное бронирование пересекается с уже существующим. Выберите другое время пожалуйста")
+            raise forms.ValidationError("Данное бронирование пересекается с уже существующим. "
+                                        "Выберите другое время пожалуйста")
 
         return cleaned_data
 

@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserChangeForm
 from django.forms import HiddenInput
 
 from users.models import User

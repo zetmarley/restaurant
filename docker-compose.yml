@@ -1,0 +1,64 @@
+services:
+
+  redis:
+    image: redis:latest
+    restart: on-failure
+    expose:
+      - "6379"
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      - POSTGRES_DB = "${DB_NAME}"
+      - POSTGRES_USER = "${DB_USER}"
+      - POSTGRES_PASSWORD = "${DB_PASSWORD}"
+    expose:
+      - "5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "-c", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+    restart: on-failure
+
+  app:
+    build: .
+    tty: true
+    ports:
+      - "8000:8000"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  celery:
+    build: .
+    tty: true
+    command: celery -A config worker -l INFO
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - app
+      - db
+
+  celery-beat:
+    build: .
+    tty: true
+    command: celery -A config beat -l INFO
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - app
+      - db
+
+volumes:
+  pg_data:

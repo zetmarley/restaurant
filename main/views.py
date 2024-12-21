@@ -11,6 +11,7 @@ from django.views.generic.list import ListView
 def info(request):
     return render(request, f"{BASE_DIR}/main/templates/info.html")
 
+
 def menu(request):
     return render(request, f"{BASE_DIR}/main/templates/menu.html")
 
@@ -38,7 +39,6 @@ class TableUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TableForm
     success_url = reverse_lazy('main:table-list')
     template_name = 'table_form.html'
-
 
     def get_success_url(self):
         return reverse('main:table-list')
@@ -81,7 +81,6 @@ class BookingUpdateView(LoginRequiredMixin, UpdateView):
     form_class = BookingUpdateForm
     success_url = reverse_lazy('main:booking-list')
     template_name = 'booking_form.html'
-
 
     def get_success_url(self):
         return reverse('main:booking-list')
