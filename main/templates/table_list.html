@@ -1,27 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
-
-<section class="product-box center">
-    <div class="container">
-        <form method="post" enctype="multipart/form-data">
-            <div>
-                <div>
-                    <div>
-                        <div class="card-body">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button class="button" type="submit">
-                                Забронировать
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
 <div class="table-list center">
+    {% if user.is_staff %}
+    <a class="menu" href="{% url 'main:table-create' %}" role="button">Создать</a>
             <div class="product-content">
               {% for table in tables|dictsort:'pk' %}
                 <div class="product">
@@ -35,11 +16,14 @@
                     <p class="product__overview">Занят</p>
                     {% endif %}
                     <p class="product__overview">Кол-во мест: {{table.seats}}</p>
+                    <a class="button-update" href="{% url 'main:table-update' table.pk %}" role="button">Редактировать</a>
+                    <a class="button-delete" href="{% url 'main:table-delete' table.pk %}" role="button">Удалить</a>
                 </div>
               {% endfor %}
             </div>
     <img class="table-list-map" src="/media/map_with_numbers.png" alt="map">
+    {% else %}
+    <p class="product__overview">У вас нет доступа.</p>
+    {% endif %}
 </div>
-
-</section>
 {% endblock %}

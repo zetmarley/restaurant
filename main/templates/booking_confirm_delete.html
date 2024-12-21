@@ -6,9 +6,9 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    <p>Вы действительно хотите удалить стол №{{ table.pk }}?</p>
+                    <p>Вы действительно хотите удалить бронь?</p>
                     <button type="submit" class="button">Удалить</button>
-                    <a class="menu" href="{% url 'main:table-list' %}" role="button">Отменить</a>
+                    <a class="menu" href="{% url 'main:booking-list' %}" role="button">Отменить</a>
                 </form>
             </div>
     </div>

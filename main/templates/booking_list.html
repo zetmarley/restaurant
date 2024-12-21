@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="table-list center">
+    {% if user.is_staff %}
+    <a class="menu" href="{% url 'main:booking-create' %}" role="button">Создать</a>
+    <div class="product-content">
+        {% for booking in bookings|dictsort:'pk' %}
+        <div class="product">
+            <h3 class="product__name">Стол №{{booking.table.pk}}</h3>
+            <p class="product__overview">Бронь с {{ booking.time_from }}</p>
+            <p class="product__overview">Бронь до {{ booking.time_to }}</p>
+            <p class="product__overview">Email клиента: {{ booking.client_email }}</p>
+            <p class="product__overview">Имя клиента: {{ booking.client_name }}</p>
+
+            <p class="product__overview">Телефон клиента: {{ booking.client_phone }}</p>
+            <p class="product__overview">Уведомлен? {{ booking.is_notified }}</p>
+            <a class="button-update" href="{% url 'main:booking-update' booking.pk %}" role="button">Редактировать</a>
+            <a class="button-delete" href="{% url 'main:booking-delete' booking.pk %}" role="button">Удалить</a>
+        </div>
+        {% endfor %}
+    </div>
+    <img class="table-list-map" src="/media/map_with_numbers.png" alt="map">
+    {% else %}
+    <p class="product__overview">У вас нет доступа.</p>
+    {% endif %}
+</div>
+{% endblock %}

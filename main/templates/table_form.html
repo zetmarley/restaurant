@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<section class="container profile center">
+    {% if user.is_staff %}
+    <form method="post" enctype="multipart/form-data">
+        <div class="card-body">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button" type="submit">
+                Cоздать
+            </button>
+        </div>
+    </form>
+    {% else %}
+    <p class="product__overview">У вас нет доступа.</p>
+    {% endif %}
+</section>
+{% endblock %}

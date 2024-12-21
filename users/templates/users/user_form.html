@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container profile center">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card-body">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+    <form method="post" action="{% url 'users:logout' %}">
+        <div class="card-body">
+            {% csrf_token %}
+            <button class="button">Выйти</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

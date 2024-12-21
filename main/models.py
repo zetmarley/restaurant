@@ -31,7 +31,7 @@ class Booking(models.Model):
     client_email = models.EmailField(unique=True, verbose_name='почта клиента')
     client_name = models.CharField(max_length=50, verbose_name='имя клиента')
     client_phone = models.CharField(max_length=11, verbose_name='телефон клиента')
-    is_notified = models.BooleanField(default=False, verbose_name='призник уведомления')
+    is_notified = models.BooleanField(default=False, verbose_name='признак уведомления')
 
     def __str__(self):
         return f'бронь стола {self.table} с {self.time_from} до {self.time_to}'
