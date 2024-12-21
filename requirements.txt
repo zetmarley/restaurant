@@ -20,6 +20,7 @@ matplotlib-inline==0.1.7
 parso==0.8.4
 pexpect==4.9.0
 pillow==11.0.0
+pip-system-certs==4.0
 prompt_toolkit==3.0.48
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
@@ -37,3 +38,4 @@ traitlets==5.14.3
 tzdata==2024.2
 vine==5.1.0
 wcwidth==0.2.13
+wrapt==1.17.0

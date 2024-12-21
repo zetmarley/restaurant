@@ -1,48 +1,33 @@
 import datetime
 import json
-import os
-from time import tzname
-from pathlib import Path
 import pytz
 from dateutil import tz
 from django.conf import settings
 from django.core.mail import send_mail
-
 from config.settings import local_tz, BASE_DIR
 from main.models import Booking, Table
 from celery import shared_task
 
-# @shared_task
-# def send_mailing(instance, model):
-#     if model == 'Course':
-#         subscriptions = Subscription.objects.filter(course_id=instance.pk)
-#         email_list = []
-#         for i in subscriptions:
-#             email = i.user.email
-#             email_list.append(email)
-#
-#         send_mail(
-#                 subject=f'Курс {instance.title} обновлён',
-#                 message=f'Курс {instance.title} обновлён\nПосмотрите что добавили нового',
-#                 from_email=settings.EMAIL_HOST_USER,
-#                 recipient_list=email_list
-#         )
-#         return Response(data={'message': 'Подписчики уведомлены'})
-#
-#     elif model == 'Lesson':
-#         subscriptions = Subscription.objects.filter(lesson_id=instance.pk)
-#         email_list = []
-#         for i in subscriptions:
-#             email = i.user.email
-#             email_list.append(email)
-#
-#         send_mail(
-#             subject=f'Урок {instance.title} обновлён',
-#             message=f'Урок {instance.title} обновлён\nПосмотрите что добавили нового',
-#             from_email=settings.EMAIL_HOST_USER,
-#             recipient_list=email_list
-#         )
-#         return Response(data={'message': 'Подписчики уведомлены'})
+@shared_task
+def email_notification():
+    booking_list = Booking.objects.filter(is_notified=False)
+
+    if booking_list.exists():
+        for booking in booking_list:
+            time_from = booking.time_from.replace(tzinfo=None)
+            if time_from - datetime.datetime.now(tz=None) <= datetime.timedelta(hours=1):
+                time_from_tz = booking.time_from.astimezone()
+                time_to_tz = booking.time_to.astimezone()
+
+                send_mail(
+                    subject=f'До начала бронирования остался час!',
+                    message=f'Ваша бронь:\nСтол №{booking.table.pk}\nC {time_from_tz.hour}:'
+                            f'{time_from_tz.minute} До {time_to_tz.hour}:{time_to_tz.minute}',
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[booking.client_email]
+                )
+                booking.is_notified = True
+                booking.save()
 
 @shared_task
 def check_bookings():
@@ -86,6 +71,5 @@ def check_bookings():
     for table in table_list:
         if not Booking.objects.filter(table=table).exists() and table.free == False:
             table.free = True
-            print('aboba')
             table.save()
 
