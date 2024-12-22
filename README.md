@@ -23,3 +23,5 @@
 - celery -A config worker -l INFO
 - celery -A config beat -l INFO
 
+Для быстрого запуска docker-compose:
+- docker-compose up -d --build
