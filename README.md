@@ -25,3 +25,17 @@
 
 Для быстрого запуска docker-compose:
 - docker-compose up -d --build
+
+Перечень переменных в .env:
+- DB_NAME
+- DB_USER
+- DB_PASSWORD
+- LANGUAGE_CODE
+- TIME_ZONE
+- EMAIL_HOST_USER
+- EMAIL_HOST_PASSWORD
+- CACHE_ENABLED
+- CACHE_LOCATION
+- EMAIL_HOST
+- EMAIL_PORT
+- SECRET_KEY
