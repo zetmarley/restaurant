@@ -23,6 +23,8 @@
 
 Есть кастомная команда позволяющая создавать суперюзера: python manage.py csu
 
+Для работы кэширования запустите redis-server с портом по умолчанию (6379)
+
 Для запуска celery, выполняющий главный функционал сайта, запустите следующие комманды:
 
 - celery -A config worker -l INFO
@@ -32,15 +34,11 @@
 - docker-compose up -d --build
 
 Перечень переменных в .env:
-- DB_NAME
-- DB_USER
 - DB_PASSWORD
-- LANGUAGE_CODE
-- TIME_ZONE
-- EMAIL_HOST_USER
-- EMAIL_HOST_PASSWORD
-- CACHE_ENABLED
-- CACHE_LOCATION
-- EMAIL_HOST
-- EMAIL_PORT
+- DB_USER
 - SECRET_KEY
+- TIME_ZONE
+- CACHE_ENABLED (True/False)
+- CACHE_LOCATION (для docker-compose должен быть "redis://127.0.0.1:6379")
+- EMAIL_HOST_USER (smtp клиент для рассылки предупреждений для клиентов)
+- EMAIL_HOST_PASSWORD (smtp клиент для рассылки предупреждений для клиентов)
