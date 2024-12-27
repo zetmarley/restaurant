@@ -32,9 +32,13 @@
 
 Для быстрого запуска docker-compose:
 - docker-compose up -d --build 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 При оформлении docker-compose поменяйте значение в settings.py на:
 - CELERY_BROKER_URL = 'redis://redis:6379'
 - CELERY_RESULT_BACKEND = 'redis://redis:6379'
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 Перечень переменных в .env:
 - DB_PASSWORD
