@@ -1,3 +1,5 @@
+from email.policy import default
+
 from django.db import models
 
 
@@ -37,3 +39,19 @@ class Booking(models.Model):
     class Meta:
         verbose_name = 'бронь'
         verbose_name_plural = 'бронь'
+
+class Content(models.Model):
+    """Модель контента"""
+    subsequence = models.PositiveIntegerField(default=1, verbose_name='последовательность')
+    text1 = models.TextField(verbose_name='текст1', **NULLABLE)
+    text2 = models.TextField(verbose_name='текст2', **NULLABLE)
+    text3 = models.TextField(verbose_name='текст3', **NULLABLE)
+    image = models.ImageField(verbose_name='изображение', **NULLABLE)
+    reversed = models.BooleanField(default=False, verbose_name='отзеркалено')
+
+    def __str__(self):
+        return f'контент {self.pk}'
+
+    class Meta:
+        verbose_name = 'контент'
+        verbose_name_plural = 'контент'

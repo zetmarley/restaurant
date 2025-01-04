@@ -1275,6 +1275,16 @@ input {
     text-decoration: none;
     text-shadow: red 1px 0 10px;
 }
+
+.content-edit {
+    display: flex;
+    align-self: stretch;
+    gap: 10px;
+}
+
+.content-from {
+    align-items: flex-start;
+}
 @font-face {
 font-family: "Jurere";
 src: url("/media/fonts/jurere/jurere.otf") format("truetype");

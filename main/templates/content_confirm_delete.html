@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container profile center">
+    {% if user.is_staff %}
+    <div class="row" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Вы действительно хотите удалить контент №{{ content.pk }}?</p>
+                    <button type="submit" class="button">Удалить</button>
+                    <a class="menu" href="{% url 'main:info' %}" role="button">Отменить</a>
+                </form>
+            </div>
+    </div>
+    {% else %}
+    <p class="product__overview">У вас нет доступа.</p>
+    {% endif %}
+</div>
+{% endblock %}

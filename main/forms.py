@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import HiddenInput
 
-from main.models import Booking, Table
+from main.models import Booking, Table, Content
 
 
 class BookingForm(forms.ModelForm):
@@ -65,3 +65,9 @@ class TableForm(forms.ModelForm):
     class Meta:
         model = Table
         fields = ('id', 'free', 'seats', 'is_vip')
+
+
+class ContentForm(forms.ModelForm):
+    class Meta:
+        model = Content
+        fields = '__all__'
