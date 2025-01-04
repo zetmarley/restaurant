@@ -6,7 +6,7 @@
     <div class="product-content">
         {% for booking in bookings|dictsort:'pk' %}
         <div class="product">
-            <h3 class="product__name">Стол №{{booking.table.pk}}</h3>
+            <h3 class="product__name">Бронь №{{booking.table.pk}}</h3>
             <p class="product__overview">Бронь с {{ booking.time_from }}</p>
             <p class="product__overview">Бронь до {{ booking.time_to }}</p>
             <p class="product__overview">Email клиента: {{ booking.client_email }}</p>

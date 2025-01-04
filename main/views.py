@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from config.settings import BASE_DIR
-from main.forms import BookingForm, TableForm, BookingUpdateForm
-from main.models import Table, Booking
+from main.forms import BookingForm, TableForm, BookingUpdateForm, ContentForm
+from main.models import Table, Booking, Content
 from django.views.generic.list import ListView
 
 
@@ -14,6 +15,17 @@ def info(request):
 
 def menu(request):
     return render(request, f"{BASE_DIR}/main/templates/menu.html")
+
+
+class ContentListView(ListView):
+    model = Content
+    template_name = 'info.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["content"] = Content.objects.all()
+        context["MEDIA_URL"] = settings.MEDIA_URL
+        return context
 
 
 class TableListView(LoginRequiredMixin, ListView):
@@ -90,6 +102,22 @@ class BookingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Booking
     success_url = reverse_lazy('main:booking-list')
     template_name = 'booking_confirm_delete.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class ContentUpdateView(LoginRequiredMixin, UpdateView):
+    model = Content
+    form_class = ContentForm
+    success_url = reverse_lazy('main:info')
+    template_name = 'content_form.html'
+
+
+class ContentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Content
+    success_url = reverse_lazy('main:info')
+    template_name = 'content_confirm_delete.html'
 
     def test_func(self):
         return self.request.user.is_staff

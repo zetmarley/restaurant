@@ -43,7 +43,9 @@ class Booking(models.Model):
 class Content(models.Model):
     """Модель контента"""
     subsequence = models.PositiveIntegerField(default=1, verbose_name='последовательность')
-    text = models.TextField(verbose_name='текст')
+    text1 = models.TextField(verbose_name='текст1', **NULLABLE)
+    text2 = models.TextField(verbose_name='текст2', **NULLABLE)
+    text3 = models.TextField(verbose_name='текст3', **NULLABLE)
     image = models.ImageField(verbose_name='изображение', **NULLABLE)
     reversed = models.BooleanField(default=False, verbose_name='отзеркалено')
 
