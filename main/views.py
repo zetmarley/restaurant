@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+from advertising.models import Subscribers
 from config.settings import BASE_DIR
 from main.forms import BookingForm, TableForm, BookingUpdateForm, ContentForm
 from main.models import Table, Booking, Content
@@ -68,7 +70,7 @@ class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class BookingCreateView(CreateView):
     model = Booking
     form_class = BookingForm
-    success_url = reverse_lazy('main:booking-create')
+    success_url = reverse_lazy('main:info')
     template_name = 'booking_form.html'
     context_object_name = Table
 
@@ -76,6 +78,31 @@ class BookingCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["tables"] = Table.objects.all()
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        sub_status = request.POST.get("sub_status")
+        if sub_status == 'on':
+            client_email = request.POST.get("client_email")
+            client_name = request.POST.get("client_name")
+            client_phone = request.POST.get("client_phone")
+
+            if Subscribers.objects.filter(email=client_email):
+                sub = Subscribers.objects.get(email=client_email)
+                sub.phone = client_phone
+                sub.name = client_name
+                sub.save()
+            elif Subscribers.objects.filter(phone=client_phone):
+                sub = Subscribers.objects.get(phone=client_phone)
+                sub.email = client_email
+                sub.name = client_name
+                sub.save()
+            else:
+                Subscribers.objects.create(email=client_email,
+                                           phone=client_phone,
+                                           name=client_name)
+
+        return super().post(request, *args, **kwargs)
 
 
 class BookingListView(LoginRequiredMixin, ListView):

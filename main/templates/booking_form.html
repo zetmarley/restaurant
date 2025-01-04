@@ -10,6 +10,10 @@
                         <div class="card-body">
                             {% csrf_token %}
                             {{ form.as_p }}
+                            <div class="subscription">
+                                <p>Получать новости об акциях</p>
+                            <input class="email-checkbox" type="checkbox" name="sub_status">
+                                </div>
                             <button class="button" type="submit">
                                 Забронировать
                             </button>
