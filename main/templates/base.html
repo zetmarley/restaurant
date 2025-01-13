@@ -47,7 +47,7 @@
                     <img class="tg_logo" src="/media/tg.svg" alt="Телеграм">
                 </div>
             </div>
-            <form class="footer__form" action="{% url 'ad:ad-create' %}" method="POST">
+            <form class="footer__form" action="{% url 'ad:subscriber-create' %}" method="POST">
                 {% csrf_token %}
                     <p class="subscription">Получайте наши новости и обновления</p>
                     <input class="email" placeholder="Ваш e-mail" type="email" name="email_field">

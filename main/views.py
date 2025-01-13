@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -30,7 +31,7 @@ class ContentListView(ListView):
         return context
 
 
-class TableListView(LoginRequiredMixin, ListView):
+class TableListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Table
     template_name = 'table_list.html'
 
@@ -39,23 +40,44 @@ class TableListView(LoginRequiredMixin, ListView):
         context["tables"] = Table.objects.all()
         return context
 
+    def test_func(self):
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
 
-class TableCreateView(LoginRequiredMixin, CreateView):
+    # Если проверка не пройдена, выполните перенаправление
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
+
+
+class TableCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     model = Table
     form_class = TableForm
     success_url = reverse_lazy('main:table-list')
     template_name = 'table_form.html'
 
+    def test_func(self):
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
 
-class TableUpdateView(LoginRequiredMixin, UpdateView):
+    # Если проверка не пройдена, выполните перенаправление
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
+
+
+class TableUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Table
     form_class = TableForm
     success_url = reverse_lazy('main:table-list')
     template_name = 'table_form.html'
 
-    def get_success_url(self):
-        return reverse('main:table-list')
+    def test_func(self):
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
+
+    # Если проверка не пройдена, выполните перенаправление
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
 
 
 class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -64,7 +86,12 @@ class TableDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'table_confirm_delete.html'
 
     def test_func(self):
-        return self.request.user.is_staff
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
+
+    # Если проверка не пройдена, выполните перенаправление
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
 
 
 class BookingCreateView(CreateView):
@@ -105,7 +132,7 @@ class BookingCreateView(CreateView):
         return super().post(request, *args, **kwargs)
 
 
-class BookingListView(LoginRequiredMixin, ListView):
+class BookingListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Booking
     template_name = 'booking_list.html'
 
@@ -114,15 +141,27 @@ class BookingListView(LoginRequiredMixin, ListView):
         context["bookings"] = Booking.objects.all()
         return context
 
+    def test_func(self):
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
 
-class BookingUpdateView(LoginRequiredMixin, UpdateView):
+    # Если проверка не пройдена, выполните перенаправление
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
+
+
+class BookingUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Booking
     form_class = BookingUpdateForm
     success_url = reverse_lazy('main:booking-list')
     template_name = 'booking_form.html'
 
-    def get_success_url(self):
-        return reverse('main:booking-list')
+    def test_func(self):
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
+
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
 
 
 class BookingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -131,14 +170,25 @@ class BookingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'booking_confirm_delete.html'
 
     def test_func(self):
-        return self.request.user.is_staff
+        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        return result
+
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
 
 
-class ContentUpdateView(LoginRequiredMixin, UpdateView):
+class ContentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Content
     form_class = ContentForm
     success_url = reverse_lazy('main:info')
     template_name = 'content_form.html'
+
+    def test_func(self):
+        result = self.request.user.groups.filter(name='contentmanager').exists() or self.request.user.is_superuser
+        return result
+
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
 
 
 class ContentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -147,4 +197,8 @@ class ContentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'content_confirm_delete.html'
 
     def test_func(self):
-        return self.request.user.is_staff
+        result = self.request.user.groups.filter(name='contentmanager').exists() or self.request.user.is_superuser
+        return result
+
+    def handle_no_permission(self):
+        return HttpResponseForbidden("У вас нет доступа к этому ресурсу.")
