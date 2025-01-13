@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% load has_group %}
+{% block content %}
+
+<section class="product-box center">
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <div>
+                    <div>
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="button" type="submit">
+                                Создать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-list center">
+        <div class="product-content">
+            {% for letter in letters|dictsort:'pk' %}
+            <div class="product">
+                <h3 class="product__name">Письмо №{{letter.pk}}</h3>
+                <p class="product__overview">Заголовок: {{letter.subject}}</p>
+                <p class="product__overview">Сообщение: {{letter.message}}</p>
+                <p class="product__overview">Описание: {{letter.description}}</p>
+                <form action="{% url 'ad:send-letter' letter.pk %}" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{letter.pk}}">
+                    <button class="button-update">Отправить</button>
+                </form>
+                <a class="button-update" href="{% url 'ad:letters-update' letter.pk %}" role="button">Редактировать</a>
+                <a class="button-delete" href="{% url 'ad:letters-delete' letter.pk %}" role="button">Удалить</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+{% endblock %}

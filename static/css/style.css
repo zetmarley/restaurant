@@ -1285,6 +1285,17 @@ input {
 .content-from {
     align-items: flex-start;
 }
+
+.subscription {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.email-checkbox {
+    width: 15px;
+    height: 15px;
+}
 @font-face {
 font-family: "Jurere";
 src: url("/media/fonts/jurere/jurere.otf") format("truetype");
