@@ -23,7 +23,7 @@
 
     <div class="table-list center">
         <div class="product-content">
-            {% for letter in letters|dictsort:'pk' %}
+            {% for letter in letters %}
             <div class="product">
                 <h3 class="product__name">Письмо №{{letter.pk}}</h3>
                 <p class="product__overview">Заголовок: {{letter.subject}}</p>
