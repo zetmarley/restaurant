@@ -64,7 +64,7 @@ class BookingUpdateForm(forms.ModelForm):
 class TableForm(forms.ModelForm):
     class Meta:
         model = Table
-        fields = ('id', 'free', 'seats', 'is_vip')
+        fields = ('id', 'number', 'free', 'seats', 'is_vip')
 
 
 class ContentForm(forms.ModelForm):

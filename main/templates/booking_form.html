@@ -27,7 +27,7 @@
 
 <div class="table-list center">
             <div class="product-content">
-              {% for table in tables|dictsort:'pk' %}
+              {% for table in tables|dictsort:'number' %}
                 <div class="product">
                     <h3 class="product__name">Стол №{{table.pk}}</h3>
                     {% if table.is_vip %}
