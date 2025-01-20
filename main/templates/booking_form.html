@@ -29,7 +29,7 @@
             <div class="product-content">
               {% for table in tables|dictsort:'number' %}
                 <div class="product">
-                    <h3 class="product__name">Стол №{{table.pk}}</h3>
+                    <h3 class="product__name">Стол №{{table.number}}</h3>
                     {% if table.is_vip %}
                       <p class="product__overview">VIP</p>
                     {% endif %}
