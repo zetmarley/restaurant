@@ -1,0 +1,15 @@
+DB_NAME="restaurant" - Название вашей БД
+DB_USER="postgres" - Имя пользователя БД
+DB_PASSWORD="13799731" - Пароль БД
+DB_HOST="localhost" - Хост БД
+TIME_ZONE="Asia/Novosibirsk" - Ваш часовой пояс
+CACHE_ENABLED=False/True - Включение/выключение кеширования
+CACHE_LOCATION="redis://localhost:6379" - Расположение кеша
+EMAIL_HOST='smtp.gmail.com' - Хост smtp клиента
+EMAIL_PORT=587 - Порт smtp клиента
+EMAIL_HOST_USER="email@gmail.com" - Почта smtp клиента
+EMAIL_HOST_PASSWORD='**** **** **** ****' - Пароль smtp клиента
+EMAIL_USE_TLS=True/False - Использование TSL smtp клиента
+SECRET_KEY='django-insecure-slamdpk21[213o012-81\a/.,' - Секретный ключ Django-проекта
+CELERY_BROKER_URL='redis://redis:6379' - Конфиг связи celery с redis
+CELERY_RESULT_BACKEND='redis://redis:6379' - Конфиг связи celery с redis
