@@ -22,7 +22,7 @@ urlpatterns = [
     path('booking/update/<int:pk>/', cache_page(0)(BookingUpdateView.as_view()), name='booking-update'),
     path('booking/delete/<int:pk>/', cache_page(0)(BookingDeleteView.as_view()), name='booking-delete'),
     # CRUD Контента без detail
-    path('', cache_page(0)(ContentListView.as_view()), name='info'),
+    path('', cache_page(60)(ContentListView.as_view()), name='info'),
     path('content/update/<int:pk>/', cache_page(0)(ContentUpdateView.as_view()), name='content-update'),
     path('content/delete/<int:pk>/', cache_page(0)(ContentDeleteView.as_view()), name='content-delete'),
 
