@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content %}
 <div class="table-list center">
-    {% if user.is_staff %}
+    {% if user|has_group:'waiter' or user|has_group:'observer' or user.is_superuser %}
     <a class="menu" href="{% url 'main:table-create' %}" role="button">Создать</a>
             <div class="product-content">
               {% for table in tables|dictsort:'number' %}

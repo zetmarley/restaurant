@@ -5,7 +5,7 @@
     <a class="menu" href="{% url 'main:menu' %}">Меню</a>
     <a class="menu">/</a>
     <a class="menu" href="{% url 'main:info' %}">На главную</a>
-    {% if user|has_group:'waiter' or user.is_superuser %}
+    {% if user|has_group:'waiter' or user|has_group:'observer' or user.is_superuser %}
     <a class="menu">/</a>
     <a class="menu" href="{% url 'main:booking-list' %}">Бронирования</a>
     <a class="menu">/</a>
@@ -13,7 +13,7 @@
     <a class="menu">/</a>
     <a class="menu" href="{% url 'users:profile' %}">Профиль</a>
     {% endif %}
-    {% if user|has_group:'promotioner' or user.is_superuser %}
+    {% if user|has_group:'promotioner' or user|has_group:'observer' or user.is_superuser %}
     <a class="menu">/</a>
     <a class="menu" href="{% url 'ad:letters-create' %}">Рассылка</a>
     {% endif %}

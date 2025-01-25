@@ -2,7 +2,7 @@
 {% block content %}
 
 <section class="container profile center">
-    {% if user.is_staff %}
+    {% if user|has_group:'waiter' or user.is_superuser %}
     <form method="post" enctype="multipart/form-data">
         <div class="card-body">
             {% csrf_token %}

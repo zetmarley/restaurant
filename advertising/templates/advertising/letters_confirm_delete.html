@@ -2,7 +2,7 @@
 {% load has_group %}
 {% block content %}
 <div class="container profile center">
-    {% if user.is_staff %}
+    {% if user|has_group:'promotioner' or user.is_superuser %}
     <div class="row" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 <form method="post">
