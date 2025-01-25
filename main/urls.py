@@ -10,7 +10,7 @@ app_name = MainConfig.name
 
 urlpatterns = [
     # path('', cache_page(0)(views.info), name='info'),
-    path('menu/', cache_page(60)(views.menu), name='menu'),
+    path('menu/', cache_page(0)(views.menu), name='menu'),
     # CRUD Столов без detail
     path('table/create/', cache_page(0)(TableCreateView.as_view()), name='table-create'),
     path('table/', cache_page(0)(TableListView.as_view()), name='table-list'),
