@@ -43,6 +43,10 @@ class LettersUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('ad:letters-create')
 
+    def test_func(self):
+        result = self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser
+        return result
+
 
 class LettersDeleteView(LoginRequiredMixin, DeleteView):
     model = Letters
@@ -50,7 +54,8 @@ class LettersDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'advertising/letters_confirm_delete.html'
 
     def test_func(self):
-        return self.request.user.is_staff
+        result = self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser
+        return result
 
 
 class SendLetterView(LoginRequiredMixin, View):
@@ -58,8 +63,7 @@ class SendLetterView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         if self.request.user.is_staff:
-            socket.getaddrinfo('localhost', 8080)
-            # try:
+            socket.getaddrinfo('localhost', 8001)
             letter = Letters.objects.get(pk=pk)
             recipient_list = list(Subscribers.objects.values_list('email', flat=True))
             send_mail(
@@ -71,3 +75,7 @@ class SendLetterView(LoginRequiredMixin, View):
             )
 
             return HttpResponseRedirect(reverse_lazy('ad:letters-create'))
+
+    def test_func(self):
+        result = self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser
+        return result
