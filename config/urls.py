@@ -21,8 +21,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('main.urls', namespace='main')),
-    path('users/', include('users.urls', namespace='users')),
-    path('ad/', include('advertising.urls', namespace='ad'))
+    path('restaurant/admin/', admin.site.urls),
+    path('restaurant/', include('main.urls', namespace='main')),
+    path('restaurant/users/', include('users.urls', namespace='users')),
+    path('restaurant/ad/', include('advertising.urls', namespace='ad'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

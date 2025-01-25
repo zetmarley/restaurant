@@ -62,7 +62,7 @@ class SendLetterView(LoginRequiredMixin, View):
     model = Letters
 
     def post(self, request, pk):
-        if self.request.user.is_staff:
+        if self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser:
             socket.getaddrinfo('localhost', 8001)
             letter = Letters.objects.get(pk=pk)
             recipient_list = list(Subscribers.objects.values_list('email', flat=True))
@@ -75,7 +75,3 @@ class SendLetterView(LoginRequiredMixin, View):
             )
 
             return HttpResponseRedirect(reverse_lazy('ad:letters-create'))
-
-    def test_func(self):
-        result = self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser
-        return result

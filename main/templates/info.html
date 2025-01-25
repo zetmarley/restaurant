@@ -22,7 +22,7 @@
             <img class="pic" src="{{MEDIA_URL}}{{post.image}}" width="500px" height="350px">
             {% endif %}
         </div>
-        {% if user|has_group:'promotioner' or user.is_superuser %}
+        {% if user|has_group:'contentmanager' or user|has_group:'observer' or user.is_superuser %}
         <div class="content-edit">
             <a class="button-update" href="{% url 'main:content-update' post.pk %}" role="button">Редактировать</a>
             <a class="button-delete" href="{% url 'main:content-delete' post.pk %}" role="button">Удалить</a>

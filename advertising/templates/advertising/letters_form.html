@@ -8,6 +8,7 @@
             <div>
                 <div>
                     <div>
+                        {% if user|has_group:'promotioner' or user.is_superuser %}
                         <div class="card-body">
                             {% csrf_token %}
                             {{ form.as_p }}
@@ -15,6 +16,9 @@
                                 Создать
                             </button>
                         </div>
+                        {% else %}
+                        <p class="product__overview">У вас нет доступа к созданию и отправке писем.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -29,12 +33,14 @@
                 <p class="product__overview">Заголовок: {{letter.subject}}</p>
                 <p class="product__overview">Сообщение: {{letter.message}}</p>
                 <p class="product__overview">Описание: {{letter.description}}</p>
+                {% if user|has_group:'promotioner' or user.is_superuser %}
                 <form action="{% url 'ad:send-letter' letter.pk %}" method="POST">
-                {% csrf_token %}
+                    {% csrf_token %}
                     <input type="hidden" name="pk" value="{{letter.pk}}">
                     <button class="button-update">Отправить</button>
                 </form>
-                <a class="button-update" href="{% url 'ad:letters-update' letter.pk %}" role="button">Редактировать</a>
+                {% endif %}
+<!--                <a class="button-update" href="{% url 'ad:letters-update' letter.pk %}" role="button">Редактировать</a>-->
                 <a class="button-delete" href="{% url 'ad:letters-delete' letter.pk %}" role="button">Удалить</a>
             </div>
             {% endfor %}
