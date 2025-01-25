@@ -41,7 +41,8 @@ class TableListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return context
 
     def test_func(self):
-        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        result = (self.request.user.groups.filter(name='waiter').exists()
+                  or self.request.user.is_superuser or self.request.user.groups.filter(name='observer').exists())
         return result
 
     # Если проверка не пройдена, выполните перенаправление
@@ -142,7 +143,8 @@ class BookingListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return context
 
     def test_func(self):
-        result = self.request.user.groups.filter(name='waiter').exists() or self.request.user.is_superuser
+        result = (self.request.user.groups.filter(name='waiter').exists()
+                  or self.request.user.is_superuser or self.request.user.groups.filter(name='observer').exists())
         return result
 
     # Если проверка не пройдена, выполните перенаправление
