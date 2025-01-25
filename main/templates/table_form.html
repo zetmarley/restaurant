@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
-
+{% load has_group %}
 <section class="container profile center">
     {% if user|has_group:'waiter' or user.is_superuser %}
     <form method="post" enctype="multipart/form-data">

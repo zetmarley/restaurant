@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content %}
 <div class="table-list center">
-    {% if user|has_group:'waiter' or user|has_group:'observer' or user.is_superuser %}
+    {% if user|has_group:'waiter' or user.is_superuser %}
     <a class="menu" href="{% url 'main:booking-create' %}" role="button">Создать</a>
     <div class="product-content">
         {% for booking in bookings|dictsort:'pk' %}
