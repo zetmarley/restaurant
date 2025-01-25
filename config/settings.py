@@ -145,9 +145,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/users/'
+LOGIN_REDIRECT_URL = '/restauran/'
+LOGOUT_REDIRECT_URL = '/restaurant/'
+LOGIN_URL = '/restaurant/users/'
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379')
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://redis:6379')
