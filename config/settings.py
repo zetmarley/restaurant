@@ -29,9 +29,9 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -88,9 +88,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME', 'restaurant'),
         'USER': os.getenv('DB_USER', 'postgres'),
-        # 'PASSWORD': os.getenv('DB_PASSWORD'),
-        # 'PORT': 5432,
-        # 'HOST': os.getenv('DB_HOST', 'db'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PORT': 5432,
+        'HOST': os.getenv('DB_HOST', 'db'),
     }
 }
 
@@ -145,9 +145,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/restaurant/'
-LOGOUT_REDIRECT_URL = '/restaurant/'
-LOGIN_URL = '/restaurant/users/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379')
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://redis:6379')
