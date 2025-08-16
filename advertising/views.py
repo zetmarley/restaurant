@@ -63,7 +63,7 @@ class SendLetterView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         if self.request.user.groups.filter(name='promotioner').exists() or self.request.user.is_superuser:
-            socket.getaddrinfo('localhost', 8001)
+            #socket.getaddrinfo('localhost', 8003)
             letter = Letters.objects.get(pk=pk)
             recipient_list = list(Subscribers.objects.values_list('email', flat=True))
             send_mail(
@@ -71,7 +71,8 @@ class SendLetterView(LoginRequiredMixin, View):
                 message=letter.message,
                 from_email=settings.EMAIL_HOST_USER,
                 auth_password=settings.EMAIL_HOST_PASSWORD,
-                recipient_list=recipient_list
+                recipient_list=recipient_list,
+                fail_silently=False,
             )
 
             return HttpResponseRedirect(reverse_lazy('ad:letters-create'))

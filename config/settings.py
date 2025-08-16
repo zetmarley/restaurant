@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -90,7 +90,7 @@ DATABASES = {
         'USER': os.getenv('DB_USER', 'postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'PORT': 5432,
-        'HOST': os.getenv('DB_HOST', 'db'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
     }
 }
 
@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = os.getenv('TIME_ZONE')
 
@@ -130,11 +130,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIRS = (
+if DEBUG :
+    STATICFILES_DIRS = (
      os.path.join(BASE_DIR, 'static'),
  )
+else:
+    STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -149,8 +150,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/users/'
 
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379')
-CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://redis:6379')
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/2')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/2')
 CELERY_TIMEZONE = os.getenv('TIME_ZONE')
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
@@ -176,23 +177,24 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'main.services.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'main.services.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
-CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+CACHE_ENABLED = True
 
 if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": os.getenv('CACHE_LOCATION'),
+            "LOCATION": "redis://localhost:6379/2",
         }
     }
